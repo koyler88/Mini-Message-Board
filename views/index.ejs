@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Mini Message Board</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <ul>
+        <% messages.forEach((message, index) => { %>
+            <div class="message-container">
+                <p>User: <%= message.user %> </p>
+                <p>Text: <%= message.text %> </p>
+                <p>Date: <%= message.added %> </p>
+                <a href="/message/<%= index %>"><button>Open</button></a>
+            </div>
+        <% }) %>
+    </ul>
+    <a href="/new">New Message</a>
+  </body>
+</html>
