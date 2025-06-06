@@ -7,9 +7,9 @@
     <ul>
         <% messages.forEach((message, index) => { %>
             <div class="message-container">
-                <p>User: <%= message.user %> </p>
-                <p>Text: <%= message.text %> </p>
-                <p>Date: <%= message.added %> </p>
+                <p>User: <%= message.name %> </p>
+                <p>Text: <%= message.message %> </p>
+                <p>Date: <%= message.date %> </p>
                 <a href="/message/<%= index %>"><button>Open</button></a>
             </div>
         <% }) %>

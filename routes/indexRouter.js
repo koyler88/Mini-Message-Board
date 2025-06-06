@@ -1,35 +1,20 @@
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
-
-function onClick() {
-  res.render("message");
-}
+const db = require("../db/queries.js")
 
 const { Router } = require("express");
 
 const indexRouter = Router();
 
-indexRouter.get("/", (req, res) => {
-  res.render("index", { messages: messages, onClick: onClick });
+indexRouter.get("/", async (req, res) => {
+  res.render("index", { messages: await db.getMessages()});
 });
-indexRouter.post("/new", (req, res) => {
+indexRouter.post("/new", async (req, res) => {
   const messageText = req.body.messageText;
   const author = req.body.author;
-  messages.push({ text: messageText, user: author, added: new Date() });
+  await db.addMessage(author, messageText, new Date())
   res.redirect("/");
 });
-indexRouter.get("/message/:id", (req, res) => {
-  const message = messages[req.params.id];
+indexRouter.get("/message/:id", async (req, res) => {
+  const message = await db.getMessage(Number(req.params.id) + 1)
   if (!message) {
     return res.status(404).send("Message not found");
   }
